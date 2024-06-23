@@ -1,12 +1,12 @@
 import { View, Text, Button } from "react-native";
 
-const Message = ({ navigation }: any) => {
+const Notification = ({ navigation }: any) => {
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <Text>Message screen</Text>
+            <Text>Notifications screen</Text>
             {/* <Button title="Go to Profile" onPress={() => navigation.navigate("Profile")} /> */}
         </View>
     );
 };
 
-export default Message;
+export default Notification;
