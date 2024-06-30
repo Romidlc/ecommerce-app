@@ -1,27 +1,30 @@
 import { StyleSheet, TouchableOpacity, View, Image, FlatList } from "react-native";
 import React from "react";
-// import Carousel from "react-native-snap-carousel"; library with some issues
 import { useNavigation } from "@react-navigation/core";
 import { PRODUCT_LIST } from "../utils/constants";
 import { IHero } from "../interfacesAndTypes/interfaces";
 
 const carouselItems = [
     {
+        id: 1,
         title: "Hero 1",
         image: require("../../assets/banners/hero5.png"),
         url: "",
     },
     // {
+    //      id: 2,
     //     title: "Hero 2",
     //     image: require("../../assets/banners/hero2.png"),
     //     url: "",
     // },
     // {
+    //     id: 3,
     //     title: "Hero 3",
     //     image: require("../../assets/banners/hero3.png"),
     //     url: "",
     // },
     // {
+    //       id: 4,
     //     title: "Hero 4",
     //     image: require("../../assets/banners/hero4.png"),
     //     url: "",
