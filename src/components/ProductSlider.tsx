@@ -1,12 +1,9 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { FlatList, Text, TouchableOpacity, View, Image } from "react-native";
 import React from "react";
 import products from "../data/products.json";
-import { useNavigation } from "@react-navigation/core";
-import { homeStyles, productSliderStyles } from "../styles/customStyles";
-import { PRIMARY_COLOR } from "../utils/constants";
+import { productSliderStyles } from "../styles/customStyles";
 
 const ProductCardItem = ({ product, height, width }: any) => {
-    const navigation = useNavigation();
     return (
         <TouchableOpacity
             activeOpacity={0.8}
@@ -38,7 +35,7 @@ export default function ProductSlider() {
                 <Image source={require("../../assets/banners/banner2.png")} style={productSliderStyles.bannerImage} />
             </View>
             <View style={productSliderStyles.productsContainer}>
-                <FlatList data={products} renderItem={({ item }: any) => <ProductCardItem product={item} width={185} height={295} />} keyExtractor={(item) => item.id.toString()} horizontal={true} showsHorizontalScrollIndicator={false} />
+                <FlatList data={products} keyExtractor={(item) => item.id} renderItem={({ item }: any) => <ProductCardItem product={item} width={185} height={295} />} keyExtractor={(item) => item.id.toString()} horizontal={true} showsHorizontalScrollIndicator={false} />
             </View>
         </View>
     );
