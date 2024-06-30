@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, FlatList, Image } from "react-native";
+import React, { useEffect } from "react";
+import { View, FlatList } from "react-native";
 import { IProduct } from "../interfacesAndTypes/interfaces";
 import { useRoute } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
 import { setProducts } from "../features/ProductList/productListSlice";
 import { useLazyGetProductsByCategoryNameQuery, useLazyGetProductsQuery } from "../services/shopService";
-import { productListStyles, productSliderStyles } from "../styles/customStyles";
+import { productListStyles } from "../styles/customStyles";
 import ProductCardItem from "../components/ProductCardItem";
 
 interface IFilter {

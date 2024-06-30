@@ -110,7 +110,7 @@ export const productSliderStyles = StyleSheet.create({
     lineStyle: {
         borderWidth: 0.5,
         borderColor: "#DBE2E2",
-        margin: 10,
+        margin: 5,
         width: "90%",
     },
     fee: {
