@@ -19,7 +19,14 @@ const shopApi = createApi({
                 return transformedResponse;
             },
         }),
+        getProductsById: builder.query<IProduct, number>({
+            query: (productId) => `products.json?orderBy="id"&equalTo=${productId}`,
+            transformResponse: (res: IProduct): IProduct => {
+                const [transformedResponse] = Object.values(res);
+                return transformedResponse;
+            },
+        }),
     }),
 });
-export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useLazyGetProductsQuery } = shopApi;
+export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useGetProductsByIdQuery, useLazyGetProductsQuery } = shopApi;
 export default shopApi;

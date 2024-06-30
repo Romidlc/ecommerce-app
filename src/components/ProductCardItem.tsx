@@ -2,11 +2,14 @@ import { View, Text, Image, Pressable } from "react-native";
 import React from "react";
 import { IProduct } from "../interfacesAndTypes/interfaces";
 import { productSliderStyles } from "../styles/customStyles";
+import { useNavigation } from "@react-navigation/native";
+import { PRODUCT_DETAIL } from "../utils/constants";
 
 const ProductCardItem = ({ product, height = 295, width = 170 }: { product: IProduct; height?: number; width?: number }) => {
+    const navigation: any = useNavigation();
     return (
         <Pressable
-            onPress={() => console.log("redirect to product detail screen padding product id")}
+            onPress={() => navigation.navigate(PRODUCT_DETAIL, { productId: product.id })}
             style={{
                 ...productSliderStyles.productCardContainer,
                 height,
