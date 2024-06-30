@@ -1,12 +1,14 @@
-import { View, Image } from "react-native";
-import { homeStyles } from "../styles/customStyles";
+import { View, Image, ScrollView } from "react-native";
+
 import Heros from "../components/Heros";
 import ProductSlider from "../components/ProductSlider";
+import CategoriesSlider from "../components/CategoriesSlider";
 
-const Home = ({ navigation }: any) => {
+const Home = () => {
     return (
-        <View style={homeStyles.homeContainer}>
+        <View>
             <Heros />
+            <CategoriesSlider />
             <ProductSlider />
         </View>
     );

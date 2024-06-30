@@ -12,12 +12,12 @@ export const Header = () => {
     const route = useRoute();
     const navigation: any = useNavigation();
 
-    const redirectTo = ({ screen, params }: { screen: string; params: object }) => navigation.navigate(screen, params);
+    const redirectTo = ({ screen, params }: { screen: string; params: object }) => navigation.navigate(screen, { ...params });
 
     return (
         <View style={headerStyles.container}>
             <View style={headerStyles.imageContainer}>
-                <Image source={require("../../assets/store-logo.png")} style={headerStyles.logo} />
+                <Image source={require("../../assets/g10.png")} style={headerStyles.logo} />
             </View>
             {ROUTES_WITH_SEARCHBAR.includes(route.name) && <SearchBar redirectTo={redirectTo} />}
         </View>
