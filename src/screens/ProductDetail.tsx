@@ -1,22 +1,30 @@
-import { View, Text, Image, Pressable } from "react-native";
-import React from "react";
-import { useRoute } from "@react-navigation/native";
+import { View, Text, Image, Pressable, ScrollView, Button, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useGetProductsByIdQuery } from "../services/shopService";
-import { productSliderStyles } from "../styles/customStyles";
-import { PRIMARY_COLOR } from "../utils/constants";
+import { cartStyles, productSliderStyles } from "../styles/customStyles";
+import { CART, PRIMARY_COLOR } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addProductIntoCart } from "../features/Cart/cartSlice";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const ProductDetail = () => {
     const {
         params: { productId },
     }: any = useRoute();
-    const { data: product, isLoading } = useGetProductsByIdQuery(productId);
+    const navigation: any = useNavigation();
+    const { data: product } = useGetProductsByIdQuery(productId);
     const dispatch = useDispatch();
     return (
         <>
             {product && (
-                <View style={{ flex: 1 }}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                    <Pressable onPress={() => navigation.goBack()}>
+                        <View>
+                            <Ionicons name="arrow-back-outline" size={24} />
+                        </View>
+                    </Pressable>
+
                     <View
                         style={{
                             padding: 5,
@@ -29,6 +37,7 @@ const ProductDetail = () => {
                         style={{
                             margin: 5,
                             elevation: 8,
+                            alignItems: "center",
                             shadowColor: "#000000",
                             shadowOffset: {
                                 width: 0,
@@ -38,7 +47,10 @@ const ProductDetail = () => {
                             shadowOpacity: 1.0,
                         }}
                     >
-                        <Image source={{ uri: product.images[0] }} style={{ width: 350, height: 302 }} />
+                        {/* NOTE: images are not available return a 404 httpcode. It' was replaced by a product default image*/}
+
+                        {/* <Image source={{ uri: product.images[0] }} style={{ width: 350, height: 302 }} /> */}
+                        <Image source={require("../../assets/no-product.png")} style={{ width: 350, height: 300 }} />
                     </View>
                     <View style={productSliderStyles.lineStyle} />
                     <View style={{ margin: 5 }}>
@@ -50,24 +62,26 @@ const ProductDetail = () => {
                         <Text style={{ fontSize: 16 }}>{product.description}</Text>
                         <Pressable
                             style={{ alignItems: "center" }}
-                            onPress={() =>
+                            onPress={() => {
                                 dispatch(
                                     addProductIntoCart({
                                         id: product.id,
                                         quantity: 1,
                                         title: product.title,
+                                        image: product.images[0],
                                         brand: product.brand,
                                         price: product.price,
                                     })
-                                )
-                            }
+                                );
+                                navigation.navigate(CART);
+                            }}
                         >
-                            <View style={{ width: "90%", backgroundColor: "#00AAF2", height: 40, justifyContent: "center", alignItems: "center", marginTop: 5, marginBottom: 20 }}>
+                            <View style={{ ...cartStyles.cartConfirmButton, margin: 10 }}>
                                 <Text style={{ color: "white" }}>Agregar al carrito</Text>
                             </View>
                         </Pressable>
                     </View>
-                </View>
+                </ScrollView>
             )}
         </>
     );

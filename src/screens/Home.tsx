@@ -1,5 +1,4 @@
-import { View, Image, ScrollView } from "react-native";
-
+import { View } from "react-native";
 import Heros from "../components/Heros";
 import ProductSlider from "../components/ProductSlider";
 import CategoriesSlider from "../components/CategoriesSlider";

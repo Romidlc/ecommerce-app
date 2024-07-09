@@ -12,6 +12,8 @@ export const PROFILE = "Profile";
 export const CART = "Cart";
 export const NOTIFICATION = "Notification";
 export const PRODUCT_DETAIL = "ProductDetail";
+export const SIGNIN = "SignIn";
+export const SIGNUP = "SignUp";
 // It would be useful when header'll rendering by every screen and search bar must be hidden.
 export const ROUTES_WITH_SEARCHBAR = [INTRO];
 

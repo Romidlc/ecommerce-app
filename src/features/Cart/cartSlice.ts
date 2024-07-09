@@ -5,6 +5,7 @@ interface ICartItem {
     quantity: number;
     title: string;
     brand: string;
+    image: string;
     price: number;
 }
 interface IAction {
@@ -20,6 +21,9 @@ interface ICart {
     cartItems: ICartItem[];
     totalItems: number;
 }
+
+const calculateTotalPurchase = (cartItems: ICartItem[]) => cartItems.reduce((acc, currentItem) => (acc += currentItem.price * currentItem.quantity), 0);
+
 export const cartSlice = createSlice({
     name: "cart",
     initialState: {
@@ -35,21 +39,24 @@ export const cartSlice = createSlice({
                 return accum;
             }, {});
 
-            if (!cartDict[payload.id]) {
-                const items = value.cartItems.concat(payload);
-                const totalItems = value.cartItems.reduce((acc, currentItem) => (acc += currentItem.price * currentItem.quantity), 0);
-                value.cartItems = [...items];
-                value.totalItems = totalItems;
+            if (!cartDict.hasOwnProperty(payload.id)) {
+                const newCartItems = value.cartItems.concat(payload);
+                value.cartItems = [...newCartItems];
             } else {
                 const itemToUpdate = cartDict[payload.id];
                 cartDict[payload.id] = { ...itemToUpdate, quantity: itemToUpdate.quantity + payload.quantity };
-                const totalItems = value.cartItems.reduce((acc, currentItem) => (acc += currentItem.price * currentItem.quantity), 0);
                 value.cartItems = Object.values(cartDict);
-                value.totalItems = totalItems;
             }
+            const totalItems = calculateTotalPurchase(value.cartItems);
+            value.totalItems = totalItems;
+        },
+        removeFromCart: ({ value }: { value: ICart }, { payload }: { payload: any }) => {
+            const cleanedProducts = value.cartItems.filter((item: ICartItem) => item.id !== payload.id);
+            value.cartItems = cleanedProducts;
+            value.totalItems = calculateTotalPurchase(cleanedProducts);
         },
     },
 });
 
-export const { addProductIntoCart } = cartSlice.actions;
+export const { addProductIntoCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;

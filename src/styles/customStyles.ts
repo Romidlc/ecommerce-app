@@ -4,13 +4,8 @@ import { PRIMARY_COLOR, SUCCESS_COLOR } from "../utils/constants";
 export const headerStyles = StyleSheet.create({
     container: {
         backgroundColor: "white",
-        height: 150,
-        justifyContent: "space-between",
-        alignContent: "center",
     },
     imageContainer: {
-        top: 40,
-        margin: 5,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
@@ -27,17 +22,12 @@ export const bottomBarStyles = StyleSheet.create({
     },
     tabBarStyle: {
         backgroundColor: PRIMARY_COLOR,
-        height: 60,
-        paddingTop: 0,
-        paddingBottom: 10,
-
-        borderTopWidth: 0,
     },
 });
 
 export const searchBarStyles = StyleSheet.create({
     container: {
-        marginVertical: 40,
+        marginVertical: 20,
         marginHorizontal: 20,
         width: "90%",
         flexDirection: "row",
@@ -83,22 +73,17 @@ export const productSliderStyles = StyleSheet.create({
         marginTop: 5,
     },
     productCardContainer: {
-        marginHorizontal: 2,
         margin: 2,
+        marginHorizontal: 2,
         paddingBottom: 20,
         paddingHorizontal: 7,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white",
     },
-    imageContainer: {
-        justifyContent: "center",
-        alignContent: "center",
+    image: {
         height: 140,
         width: 140,
-    },
-    image: {
-        flex: 1,
     },
     bannerImage: {
         width: 388,
@@ -166,5 +151,115 @@ export const categorySliderStyles = StyleSheet.create({
     },
     categoryText: {
         color: "white",
+    },
+});
+
+export const fontSize = StyleSheet.create({
+    md: {
+        fontSize: 16,
+    },
+    lg: {
+        fontSize: 20,
+    },
+});
+
+export const cartStyles = StyleSheet.create({
+    cartContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    cartItemContainer: {
+        backgroundColor: "#FFFFFF",
+        flexDirection: "row",
+        marginVertical: 5,
+        marginHorizontal: 5,
+        padding: 10,
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "95%",
+    },
+    cartItemPrice: {
+        fontWeight: 400,
+        lineHeight: 28,
+    },
+    cartConfirmButton: {
+        width: 340,
+        backgroundColor: "#00AAF2",
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    cartContinuePurchase: {
+        width: 340,
+        marginTop: 5,
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 0.5,
+        borderColor: "#00AAF2",
+    },
+});
+
+export const formStyles = StyleSheet.create({
+    main: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ffffff",
+    },
+    container: {
+        width: "90%",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "FFF",
+        gap: 15,
+        paddingVertical: 20,
+        borderRadius: 10,
+    },
+    subLink: {
+        fontSize: 14,
+        color: "blue",
+    },
+    inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#f3f3f3",
+        borderRadius: 8,
+        paddingHorizontal: 14,
+    },
+    subtitle: {
+        width: "90%",
+        fontSize: 16,
+    },
+    input: {
+        flex: 1,
+        color: "#333",
+        paddingVertical: 10,
+        paddingRight: 10,
+        fontSize: 16,
+    },
+    button: {
+        backgroundColor: "#00AAF2",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 8,
+        height: 50,
+        width: "80%",
+    },
+    text: {
+        color: "white",
+        fontSize: 14,
+    },
+    imageContainer: {
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 10,
+    },
+    logo: {
+        width: 150,
+        height: 41,
     },
 });
