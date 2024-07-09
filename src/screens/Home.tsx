@@ -1,15 +1,15 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Heros from "../components/Heros";
 import ProductSlider from "../components/ProductSlider";
 import CategoriesSlider from "../components/CategoriesSlider";
 
 const Home = () => {
     return (
-        <View>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <Heros />
             <CategoriesSlider />
             <ProductSlider />
-        </View>
+        </ScrollView>
     );
 };
 

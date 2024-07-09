@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface IUser {
-    id: number;
-    token: string;
-    name: string;
-    email: string;
-}
+import { IUser } from "../../interfacesAndTypes/interfaces";
 
 interface IAction {
     type: string;

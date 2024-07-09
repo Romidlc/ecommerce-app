@@ -73,8 +73,8 @@ export const productSliderStyles = StyleSheet.create({
         marginTop: 5,
     },
     productCardContainer: {
-        margin: 2,
         marginHorizontal: 2,
+        marginVertical: 3,
         paddingBottom: 20,
         paddingHorizontal: 7,
         justifyContent: "center",
@@ -202,7 +202,6 @@ export const cartStyles = StyleSheet.create({
 
 export const formStyles = StyleSheet.create({
     main: {
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#ffffff",
@@ -238,6 +237,10 @@ export const formStyles = StyleSheet.create({
         color: "#333",
         paddingVertical: 10,
         paddingRight: 10,
+        fontSize: 16,
+    },
+    textError: {
+        color: "red",
         fontSize: 16,
     },
     button: {

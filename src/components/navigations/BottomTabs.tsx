@@ -6,7 +6,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { ICON_BOTTOM_TAB_SIZE, ICON_BOTTOM_TAB_COLOR, SECONDARY_COLOR, ICONS } from "../../utils/constants";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
 import React from "react";
-import Notification from "../../screens/Notification";
+import Orders from "../../screens/Orders";
 import { bottomBarStyles } from "../../styles/customStyles";
 import { Header } from "../Header";
 import { HomeStack } from "../navigations/HomeStack";
@@ -33,7 +33,7 @@ const BottomTabs = () => {
         >
             <Tab.Screen name="Intro" component={HomeStack} options={{ title: "Inicio", header: () => <Header /> }} />
             <Tab.Screen name="Cart" component={Cart} options={{ title: "Carrito" }} />
-            <Tab.Screen name="Notification" component={Notification} options={{ title: "Mis compras" }} />
+            <Tab.Screen name="Orders" component={Orders} options={{ title: "Mis compras" }} />
             <Tab.Screen name="Profile" component={Profile} options={{ title: "Mi Perfil" }} />
         </Tab.Navigator>
     );

@@ -1,3 +1,5 @@
+import { IMessage } from "../interfacesAndTypes/interfaces";
+
 export const ICON_BOTTOM_TAB_SIZE: number = 24;
 export const ICON_BOTTOM_TAB_COLOR: string = "#F1F1F1";
 export const PRIMARY_COLOR = "#243550";
@@ -10,7 +12,7 @@ export const INTRO = "Intro";
 export const HOME = "Home";
 export const PROFILE = "Profile";
 export const CART = "Cart";
-export const NOTIFICATION = "Notification";
+export const ORDERS = "Orders";
 export const PRODUCT_DETAIL = "ProductDetail";
 export const SIGNIN = "SignIn";
 export const SIGNUP = "SignUp";
@@ -22,5 +24,12 @@ export const ICONS: any = {
     [INTRO]: "home-outline",
     [CART]: "cart-outline",
     [PROFILE]: "person-circle-outline",
-    [NOTIFICATION]: "notifications-outline",
+    [ORDERS]: "notifications-outline",
+};
+
+export const errorMessages: IMessage = {
+    email: "Verifique su casilla example@example.com",
+    fullname: "Su nombre y apellido no deben contener números.",
+    password: "Su contraseña debe tener al menos 6 caracteres.",
+    confirmPassword: "Su contraseña debe tener al menos 6 caracteres.",
 };

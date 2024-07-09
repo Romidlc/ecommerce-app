@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ISearchBar } from "../../interfacesAndTypes/interfaces";
 
 interface IAction {
     type: string;
     payload: any;
-}
-interface ISearchBar {
-    clicked: boolean;
-    searchPhrase: string;
 }
 
 export const searchBarSlice = createSlice({

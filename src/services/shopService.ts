@@ -1,22 +1,7 @@
 import { BASE_URL } from "../firebase/database";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IProduct } from "../interfacesAndTypes/interfaces";
+import { IOrder, IProduct } from "../interfacesAndTypes/interfaces";
 
-interface ICartItem {
-    id: number;
-    quantity: number;
-    title: string;
-    brand: string;
-    image: string;
-    price: number;
-}
-interface IOrder {
-    id: number;
-    user_id: number;
-    createdAt: string;
-    items: ICartItem[];
-    total: number;
-}
 const shopApi = createApi({
     reducerPath: "shopApi",
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -42,13 +27,20 @@ const shopApi = createApi({
             },
         }),
         confirmPurchase: builder.mutation({
-            query: (order: IOrder) => ({
+            query: ({ ...order }: IOrder) => ({
                 url: "orders.json",
                 method: "POST",
                 body: order,
             }),
         }),
+        getOrders: builder.query<IOrder[], void>({
+            query: () => `orders.json`,
+            transformResponse: (res: IOrder[]): IOrder[] => {
+                const transformedResponse = Object.values(res);
+                return transformedResponse;
+            },
+        }),
     }),
 });
-export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useGetProductsByIdQuery, useLazyGetProductsQuery, useConfirmPurchaseMutation } = shopApi;
+export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useGetProductsByIdQuery, useLazyGetProductsQuery, useConfirmPurchaseMutation, useGetOrdersQuery } = shopApi;
 export default shopApi;

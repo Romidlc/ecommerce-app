@@ -1,18 +1,10 @@
-import { View, Text, FlatList, Image, Pressable } from "react-native";
+import { View, Text, FlatList, Image, Pressable, Alert, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { cartStyles, fontSize } from "../styles/customStyles";
-import { removeFromCart } from "../features/Cart/cartSlice";
+import { cartStyles, fontSize, formStyles } from "../styles/customStyles";
+import { clearCartItems, removeFromCart } from "../features/Cart/cartSlice";
 import { useConfirmPurchaseMutation } from "../services/shopService";
 import { HOME } from "../utils/constants";
-
-interface ICartItem {
-    id: number;
-    title: string;
-    brand: string;
-    image: string;
-    quantity: number;
-    price: number;
-}
+import { ICartItem } from "../interfacesAndTypes/interfaces";
 
 const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
     const dispatch = useDispatch();
@@ -35,18 +27,32 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
 };
 const Cart = ({ navigation }: any) => {
     const { cartItems, totalItems } = useSelector((state: any) => state.cart.value);
-    const { user } = useSelector((state: any) => state.auth.value);
     const [triggerConfirmPurchase, result] = useConfirmPurchaseMutation();
     const makeAPurchase = () => {
         // TODO: remember to apply the order validation logic.
-        triggerConfirmPurchase({
-            id: Math.random(),
-            user_id: 1,
-            items: cartItems,
-            createdAt: Date.now().toString(),
-            total: totalItems,
-        });
+        showConfirmAlert();
     };
+
+    const showConfirmAlert = () =>
+        Alert.alert("Compra", "¿Desea confirmar la compra?", [
+            {
+                text: "Cancelar",
+                onPress: () => console.log("Cancel Pressed"),
+            },
+            {
+                text: "Confirmar",
+                onPress: () => {
+                    triggerConfirmPurchase({
+                        id: Math.random(),
+                        user_id: 1,
+                        items: cartItems,
+                        createdAt: Date.now().toString(),
+                        total: totalItems,
+                    });
+                    clearCartItems();
+                },
+            },
+        ]);
     return (
         <View style={cartStyles.cartContainer}>
             <FlatList data={cartItems} renderItem={({ item }) => <CartItem cartItem={item} />} keyExtractor={(producto) => producto.id} />
@@ -57,9 +63,7 @@ const Cart = ({ navigation }: any) => {
                         <Text style={{ fontSize: 20 }}>Total a pagar ${totalItems}</Text>
                     </View>
                     <Pressable onPress={() => makeAPurchase()}>
-                        <View style={cartStyles.cartConfirmButton}>
-                            <Text style={{ color: "white" }}>Confirmar Compra</Text>
-                        </View>
+                        <View style={cartStyles.cartConfirmButton}>{!result.isLoading ? <Text style={formStyles.text}>Confirmar compra</Text> : <ActivityIndicator color="white" />}</View>
                     </Pressable>
                     <Pressable onPress={() => navigation.navigate(HOME)}>
                         <View style={cartStyles.cartContinuePurchase}>
