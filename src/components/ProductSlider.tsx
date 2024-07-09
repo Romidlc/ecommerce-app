@@ -8,7 +8,7 @@ export default function ProductSlider() {
     return (
         <View style={productSliderStyles.container}>
             <View style={productSliderStyles.productsContainer}>
-                <FlatList nestedScrollEnabled data={products} keyExtractor={(item) => item.id.toString()} renderItem={({ item }: any) => <ProductCardItem product={item} width={185} height={295} />} horizontal={true} showsHorizontalScrollIndicator={false} />
+                <FlatList nestedScrollEnabled data={products} keyExtractor={(item) => item.id.toString()} renderItem={({ item }: any) => <ProductCardItem product={item} width={185} height={295} />} horizontal={true} />
             </View>
         </View>
     );

@@ -16,8 +16,10 @@ const ProductCardItem = ({ product, height = 295, width = 170 }: { product: IPro
                 width,
             }}
         >
-            <View style={{ ...productSliderStyles.imageContainer }}>
-                <Image source={{ uri: product.images[0] }} style={productSliderStyles.image} />
+            <View>
+                {/* NOTE: images are not available return a 404 httpcode */}
+                {/* <Image source={{ uri: product.images[0] }} style={productSliderStyles.image} /> */}
+                <Image source={require("../../assets/no-product.png")} style={productSliderStyles.image} />
             </View>
             <View style={productSliderStyles.lineStyle} />
             <View style={productSliderStyles.productDetailContainer}>

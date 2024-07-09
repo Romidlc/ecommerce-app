@@ -1,4 +1,5 @@
-import { View, Image } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { View, Image, Platform } from "react-native";
 import { headerStyles } from "../styles/customStyles";
 import { SearchBar } from "./SearchBar";
 import { useRoute } from "@react-navigation/core";
@@ -11,11 +12,16 @@ import { useNavigation } from "@react-navigation/native";
 export const Header = () => {
     const route = useRoute();
     const navigation: any = useNavigation();
-
+    const insets = useSafeAreaInsets();
     const redirectTo = ({ screen, params }: { screen: string; params: object }) => navigation.navigate(screen, { ...params });
 
     return (
-        <View style={headerStyles.container}>
+        <View
+            style={{
+                ...headerStyles.container,
+                paddingTop: Platform.OS === "android" ? 50 : insets.top,
+            }}
+        >
             <View style={headerStyles.imageContainer}>
                 <Image source={require("../../assets/g10.png")} style={headerStyles.logo} />
             </View>
