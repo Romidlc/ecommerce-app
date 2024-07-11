@@ -1,4 +1,4 @@
-import { FlatList, Text, View, Image, Pressable } from "react-native";
+import { FlatList, View } from "react-native";
 import React from "react";
 import products from "../data/products.json";
 import { productSliderStyles } from "../styles/customStyles";

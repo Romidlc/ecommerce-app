@@ -7,7 +7,7 @@ import AuthStack from "./src/components/navigations/AuthStack";
 
 const NavigationWrapper = () => {
     const { user } = useSelector((state: any) => state.auth.value);
-    const userIsLogged = Object.keys(user).length > 0;
+    const userIsLogged = true;
     return <NavigationContainer>{userIsLogged ? <BottomTabs /> : <AuthStack />}</NavigationContainer>;
 };
 export default function App() {

@@ -1,5 +1,5 @@
 import { View, Text, Image, Pressable, ScrollView, Button, ActivityIndicator } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useGetProductsByIdQuery } from "../services/shopService";
 import { cartStyles, productSliderStyles } from "../styles/customStyles";

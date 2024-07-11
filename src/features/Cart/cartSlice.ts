@@ -1,26 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface ICartItem {
-    id: number;
-    quantity: number;
-    title: string;
-    brand: string;
-    image: string;
-    price: number;
-}
-interface IAction {
-    type: string;
-    payload: ICartItem;
-}
-
-interface ICartDict {
-    [key: number]: ICartItem;
-}
-
-interface ICart {
-    cartItems: ICartItem[];
-    totalItems: number;
-}
+import { IAction, ICart, ICartDict, ICartItem } from "../../interfacesAndTypes/interfaces";
 
 const calculateTotalPurchase = (cartItems: ICartItem[]) => cartItems.reduce((acc, currentItem) => (acc += currentItem.price * currentItem.quantity), 0);
 
@@ -55,8 +34,11 @@ export const cartSlice = createSlice({
             value.cartItems = cleanedProducts;
             value.totalItems = calculateTotalPurchase(cleanedProducts);
         },
+        clearCartItems: ({ value }: { value: ICart }) => {
+            value.cartItems = [];
+        },
     },
 });
 
-export const { addProductIntoCart, removeFromCart } = cartSlice.actions;
+export const { addProductIntoCart, removeFromCart, clearCartItems } = cartSlice.actions;
 export default cartSlice.reducer;

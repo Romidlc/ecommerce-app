@@ -1,11 +1,14 @@
-import { View, Text, Pressable, TextInput, Image } from "react-native";
+import { View, Text, Pressable, TextInput, Image, ScrollView, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { SIGNIN } from "../utils/constants";
+import { SIGNIN, errorMessages } from "../utils/constants";
 import { formStyles } from "../styles/customStyles";
 import { useDispatch } from "react-redux";
 import { useSignUpMutation } from "../services/authService";
 import { setUser } from "../features/User/userSlice";
+import { getRegexByKey } from "../utils/helpers";
+import Error from "../components/Error";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const SignUp = () => {
     const dispatch = useDispatch();
@@ -15,10 +18,27 @@ const SignUp = () => {
     const [email, setEmail] = useState("" as string);
     const [confirmPassword, setConfirmPassword] = useState("" as string);
     const [password, setPassword] = useState("" as string);
-    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false as boolean);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false as boolean);
+    const [errors, setErrors] = useState({} as { [key: string]: string });
 
+    // TODO: repeated function. Move validate data from a helpers.ts
+    const validateData = () => {
+        const formData: { [key: string]: string } = {
+            email: email,
+            fullname: fullname,
+            password: password,
+            confirmPassword: confirmPassword,
+        };
+        const inputErrors: any = {};
+        Object.keys(formData).forEach((key: string) => {
+            const isCorrect = getRegexByKey(key)?.test(String(formData[key]).toLowerCase());
+            if (!isCorrect) inputErrors[key] = errorMessages[key];
+        });
+        return inputErrors;
+    };
     useEffect(() => {
-        if (result.isSuccess) {
+        if (result.isSuccess)
             dispatch(
                 setUser({
                     name: result.data.name,
@@ -26,43 +46,48 @@ const SignUp = () => {
                     token: result.data.idToken,
                 })
             );
-        }
     }, [result]);
     const submit = () => {
-        //TODO: remember to apply a validation logic here
+        const validationResp = validateData();
+        if (Object.values(validationResp).length > 0) {
+            setErrors({ ...validationResp });
+            return;
+        }
         triggerSignUp({ displayName: fullname, email, password, returnSecureToken: true });
     };
     return (
-        <View style={formStyles.main}>
+        <ScrollView contentContainerStyle={{ ...formStyles.main, flexGrow: 1 }}>
             <View style={formStyles.imageContainer}>
                 <Image source={require("../../assets/g10.png")} style={formStyles.logo} />
             </View>
             <View style={formStyles.container}>
                 <View style={formStyles.inputContainer}>
-                    <Text style={formStyles.subtitle}>{"Nombre y apellido"}</Text>
-                    <TextInput style={formStyles.input} value={fullname} onChangeText={(text: string) => setFullname(text)} />
+                    <TextInput style={formStyles.input} placeholder="Ingrese nombre y apellido" value={fullname} onChangeText={(text: string) => setFullname(text)} />
                 </View>
+                {errors.fullname && <Error errorMessage={errors.fullname} />}
                 <View style={formStyles.inputContainer}>
-                    <Text style={formStyles.subtitle}>{"Correo electronico"}</Text>
-                    <TextInput style={formStyles.input} value={email} onChangeText={(text: string) => setEmail(text)} />
+                    <TextInput style={formStyles.input} placeholder="Ingrese correo electronico" value={email} onChangeText={(text: string) => setEmail(text)} />
                 </View>
+                {errors.email && <Error errorMessage={errors.email} />}
                 <View style={formStyles.inputContainer}>
-                    <Text style={formStyles.subtitle}>{"Contraseña"}</Text>
-                    <TextInput style={formStyles.input} value={password} onChangeText={(text: string) => setPassword(text)} secureTextEntry={true} />
+                    <TextInput style={formStyles.input} placeholder="Ingrese contraseña" value={password} onChangeText={(text: string) => setPassword(text)} secureTextEntry={showPassword} />
+                    <Pressable onPress={() => setShowPassword(!showPassword)}>{showPassword ? <Ionicons color={"black"} size={24} name="eye-off-outline" /> : <Ionicons color={"black"} size={24} name="eye-outline" />}</Pressable>
                 </View>
+                {errors.password && <Error errorMessage={errors.password} />}
                 <View style={formStyles.inputContainer}>
-                    <Text style={formStyles.subtitle}>{"Confirme contraseña"}</Text>
-                    <TextInput style={formStyles.input} value={confirmPassword} onChangeText={(text: string) => setConfirmPassword(text)} secureTextEntry={true} />
+                    <TextInput style={formStyles.input} placeholder="Ingrese nuevamente su contraseña" value={confirmPassword} onChangeText={(text: string) => setConfirmPassword(text)} secureTextEntry={showConfirmPassword} />
+                    <Pressable onPress={() => setShowConfirmPassword(!showConfirmPassword)}>{showConfirmPassword ? <Ionicons color={"black"} size={24} name="eye-off-outline" /> : <Ionicons color={"black"} size={24} name="eye-outline" />}</Pressable>
                 </View>
+                {errors.confirmPassword && <Error errorMessage={errors.confirmPassword} />}
                 <Pressable onPress={() => submit()} style={formStyles.button}>
-                    <Text style={formStyles.text}>Confirmar</Text>
+                    {!result.isLoading ? <Text style={formStyles.text}>Confirmar</Text> : <ActivityIndicator color="white" />}
                 </Pressable>
                 <Text>¿Ya tienes una cuenta?</Text>
                 <Pressable onPress={() => navigation.navigate(SIGNIN)}>
                     <Text style={formStyles.subLink}>Volver al login</Text>
                 </Pressable>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 export default SignUp;
