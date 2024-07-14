@@ -14,13 +14,19 @@ export const userSlice = createSlice({
     },
     reducers: {
         setUser: ({ value }, { payload }: IAction) => {
-            value.user = { ...payload, id: 1 };
+            value.user = { ...payload };
         },
         logoutUser: ({ value }) => {
             value.user = {};
         },
+        setProfileImage: ({ value }, { payload }: { type: string; payload: string }) => {
+            value.user = {
+                ...value.user,
+                image: payload,
+            };
+        },
     },
 });
 
-export const { setUser, logoutUser } = userSlice.actions;
+export const { setUser, logoutUser, setProfileImage } = userSlice.actions;
 export default userSlice.reducer;

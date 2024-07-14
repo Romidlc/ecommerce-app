@@ -24,9 +24,9 @@ const BottomTabs = () => {
                 tabBarInactiveTintColor: ICON_BOTTOM_TAB_COLOR,
                 tabBarStyle: {
                     ...bottomBarStyles.tabBarStyle,
-                    height: Platform.OS === "android" ? 60 : 0,
+                    height: Platform.OS === "android" ? 60 : 80,
                     paddingBottom: Platform.OS === "android" ? 5 : insets.bottom,
-                    paddingTop: Platform.OS === "android" ? 5 : insets.top,
+                    paddingTop: 5,
                 },
                 tabBarHideOnKeyboard: true,
             })}

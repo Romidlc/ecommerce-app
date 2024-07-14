@@ -9,6 +9,7 @@ import { setUser } from "../features/User/userSlice";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { getRegexByKey } from "../utils/helpers";
 import Error from "../components/Error";
+import { insertSession } from "../db";
 
 const SignIn = () => {
     const dispatch = useDispatch();
@@ -38,18 +39,26 @@ const SignIn = () => {
             setErrors({ ...validationResp });
             return;
         }
-        triggerSignIn({ email, password, returnSecureToken: true });
+        triggerSignIn({ email, password });
     };
     useEffect(() => {
-        if (result.isSuccess)
+        if (result?.data) {
             dispatch(
                 setUser({
-                    id: result.data.id,
+                    id: result.data.localId,
                     name: result.data.displayName,
                     email: result.data.email,
-                    token: result.data.token,
+                    token: result.data.idToken,
                 })
             );
+            insertSession({
+                email: result.data.email,
+                localId: result.data.localId,
+                token: result.data.idToken,
+            })
+                .then((result) => console.log("[SignIn]", result))
+                .catch((error) => console.log("[SignIn] User insertion failed", error));
+        }
     }, [result]);
 
     const handlePasswordVisibility = () => setShowPassword(!showPassword);
