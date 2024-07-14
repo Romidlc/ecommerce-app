@@ -55,7 +55,7 @@ const ProductList = () => {
     return (
         <View style={productListStyles.container}>
             <View style={productListStyles.productsContainer}>
-                <FlatList numColumns={2} data={products} keyExtractor={(item: any) => item.id} renderItem={({ item }: { item: IProduct }) => <ProductCardItem product={item} />} />
+                <FlatList numColumns={2} data={products} keyExtractor={(item: any) => item.id} renderItem={({ item }: { item: IProduct }) => <ProductCardItem product={item} height={295} width={180} />} />
             </View>
         </View>
     );

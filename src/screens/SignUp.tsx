@@ -41,6 +41,7 @@ const SignUp = () => {
         if (result.isSuccess)
             dispatch(
                 setUser({
+                    id: result.data.localId,
                     name: result.data.name,
                     email: result.data.email,
                     token: result.data.idToken,
@@ -71,12 +72,12 @@ const SignUp = () => {
                 {errors.email && <Error errorMessage={errors.email} />}
                 <View style={formStyles.inputContainer}>
                     <TextInput style={formStyles.input} placeholder="Ingrese contraseña" value={password} onChangeText={(text: string) => setPassword(text)} secureTextEntry={showPassword} />
-                    <Pressable onPress={() => setShowPassword(!showPassword)}>{showPassword ? <Ionicons color={"black"} size={24} name="eye-off-outline" /> : <Ionicons color={"black"} size={24} name="eye-outline" />}</Pressable>
+                    <Pressable onPress={() => setShowPassword(!showPassword)}>{!showPassword ? <Ionicons color={"black"} size={24} name="eye-off-outline" /> : <Ionicons color={"black"} size={24} name="eye-outline" />}</Pressable>
                 </View>
                 {errors.password && <Error errorMessage={errors.password} />}
                 <View style={formStyles.inputContainer}>
                     <TextInput style={formStyles.input} placeholder="Ingrese nuevamente su contraseña" value={confirmPassword} onChangeText={(text: string) => setConfirmPassword(text)} secureTextEntry={showConfirmPassword} />
-                    <Pressable onPress={() => setShowConfirmPassword(!showConfirmPassword)}>{showConfirmPassword ? <Ionicons color={"black"} size={24} name="eye-off-outline" /> : <Ionicons color={"black"} size={24} name="eye-outline" />}</Pressable>
+                    <Pressable onPress={() => setShowConfirmPassword(!showConfirmPassword)}>{!showConfirmPassword ? <Ionicons color={"black"} size={24} name="eye-off-outline" /> : <Ionicons color={"black"} size={24} name="eye-outline" />}</Pressable>
                 </View>
                 {errors.confirmPassword && <Error errorMessage={errors.confirmPassword} />}
                 <Pressable onPress={() => submit()} style={formStyles.button}>

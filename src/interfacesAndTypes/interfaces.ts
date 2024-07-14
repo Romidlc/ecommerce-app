@@ -39,9 +39,10 @@ export interface ICartDict {
     [key: number]: ICartItem;
 }
 export interface IUser {
-    id?: number;
+    id: number;
     token: string;
-    name: string;
+    name?: string;
+    image?: string;
     email: string;
 }
 

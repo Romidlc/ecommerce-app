@@ -117,10 +117,9 @@ export const productListStyles = StyleSheet.create({
     },
     productsContainer: {
         display: "flex",
-        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
         flexWrap: "nowrap",
-        marginLeft: 5,
-        marginRight: 5,
         flex: 1,
     },
 });
@@ -264,5 +263,62 @@ export const formStyles = StyleSheet.create({
     logo: {
         width: 150,
         height: 41,
+    },
+});
+
+export const profileStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: 10,
+    },
+    logout: {
+        width: "100%",
+        borderColor: PRIMARY_COLOR,
+        borderTopWidth: 1,
+        height: 60,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    logoutText: {
+        margin: 10,
+    },
+    uploadContainer: {
+        height: 200,
+        width: 200,
+        backgroundColor: "#dadfe1",
+        position: "relative",
+        borderRadius: 100,
+        overflow: "hidden",
+    },
+    img: {
+        height: 200,
+        width: 200,
+        borderRadius: 100,
+    },
+    uploadBtnContainer: {
+        opacity: 0.4,
+        position: "absolute",
+        right: 0,
+        bottom: 0,
+        backgroundColor: PRIMARY_COLOR,
+        width: "100%",
+        height: "30%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    uploadBtn: {
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    selectImage: {
+        backgroundColor: PRIMARY_COLOR,
+        margin: 20,
+        padding: 20,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
     },
 });
