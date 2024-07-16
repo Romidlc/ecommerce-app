@@ -23,7 +23,7 @@ export const Header = () => {
             }}
         >
             <View style={headerStyles.imageContainer}>
-                <Image source={require("../../assets/g10.png")} style={headerStyles.logo} />
+                <Image source={require("../../assets/no-logo.png")} style={headerStyles.logo} />
             </View>
             {ROUTES_WITH_SEARCHBAR.includes(route.name) && <SearchBar redirectTo={redirectTo} />}
         </View>

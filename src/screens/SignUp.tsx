@@ -59,7 +59,7 @@ const SignUp = () => {
     return (
         <ScrollView contentContainerStyle={{ ...formStyles.main, flexGrow: 1 }}>
             <View style={formStyles.imageContainer}>
-                <Image source={require("../../assets/g10.png")} style={formStyles.logo} />
+                <Image source={require("../../assets/no-logo.png")} style={formStyles.logo} />
             </View>
             <View style={formStyles.container}>
                 <View style={formStyles.inputContainer}>

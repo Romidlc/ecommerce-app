@@ -24,7 +24,6 @@ const ProductDetail = () => {
                             <Ionicons name="arrow-back-outline" size={24} />
                         </View>
                     </Pressable>
-
                     <View
                         style={{
                             padding: 5,
@@ -38,13 +37,6 @@ const ProductDetail = () => {
                             margin: 5,
                             elevation: 8,
                             alignItems: "center",
-                            shadowColor: "#000000",
-                            shadowOffset: {
-                                width: 0,
-                                height: 3,
-                            },
-                            shadowRadius: 5,
-                            shadowOpacity: 1.0,
                         }}
                     >
                         {/* NOTE: images are not available return a 404 httpcode. It' was replaced by a product default image*/}

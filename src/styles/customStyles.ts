@@ -11,8 +11,10 @@ export const headerStyles = StyleSheet.create({
         alignItems: "center",
     },
     logo: {
-        width: 150,
-        height: 41,
+        // width: 150,
+        // height: 41,
+        width: 80,
+        height: 80,
     },
 });
 
@@ -261,8 +263,10 @@ export const formStyles = StyleSheet.create({
         margin: 10,
     },
     logo: {
-        width: 150,
-        height: 41,
+        // width: 150,
+        // height: 41,
+        width: 80,
+        height: 80,
     },
 });
 
