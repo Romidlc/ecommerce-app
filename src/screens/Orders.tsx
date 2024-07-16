@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Image } from "react-native";
 import { useGetOrdersQuery } from "../services/shopService";
 import { IOrder } from "../interfacesAndTypes/interfaces";
 import { productSliderStyles } from "../styles/customStyles";
@@ -6,12 +6,14 @@ import { productSliderStyles } from "../styles/customStyles";
 const OrderDetail = ({ order }: { order: IOrder }) => {
     return (
         <>
-            <View style={{ flex: 1, justifyContent: "center", padding: 4 }}>
+            <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignContent: "center", padding: 4 }}>
+                <Image source={require("../../assets/order-logo.png")} />
                 <View>
-                    <Text>{order.id}</Text>
-                    <Text>{`${new Date(Number(order.createdAt))}`}</Text>
+                    <Text> En proceso</Text>
+                    <Text> Nro de envío: {order.id}</Text>
+                    <Text> Fecha:{`${new Date(Number(order.createdAt))}`}</Text>
+                    <Text> Total:{order.total}</Text>
                 </View>
-                <Text>{order.total}</Text>
             </View>
             <View style={productSliderStyles.lineStyle} />
         </>
