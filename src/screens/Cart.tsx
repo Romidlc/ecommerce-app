@@ -26,6 +26,7 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
     );
 };
 const Cart = ({ navigation }: any) => {
+    const { user } = useSelector((state: any) => state.auth.value);
     const { cartItems, totalItems } = useSelector((state: any) => state.cart.value);
     const [triggerConfirmPurchase, result] = useConfirmPurchaseMutation();
     const makeAPurchase = () => {
@@ -44,7 +45,7 @@ const Cart = ({ navigation }: any) => {
                 onPress: () => {
                     triggerConfirmPurchase({
                         id: Math.random(),
-                        user_id: 1,
+                        userId: user.id,
                         items: cartItems,
                         createdAt: Date.now().toString(),
                         total: totalItems,

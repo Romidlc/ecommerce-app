@@ -48,7 +48,7 @@ export interface IUser {
 
 export interface IOrder {
     id: number;
-    user_id: number;
+    userId: string;
     createdAt: string;
     items: ICartItem[];
     total: number;

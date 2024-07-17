@@ -30,7 +30,7 @@ const Profile = ({ navigation }: any) => {
     return (
         <View style={{ ...profileStyles.container, marginTop: insets.top }}>
             <ImageSelector />
-            <Text>Bienvenida {user.name || user.email}</Text>
+            <Text>Bienvenida {user.name || user.email}!</Text>
             <Pressable onPress={() => logout()} style={profileStyles.logout}>
                 <Ionicons name="log-out-outline" size={24} />
                 <Text style={profileStyles.logoutText}>Salir</Text>

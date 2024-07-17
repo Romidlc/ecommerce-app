@@ -1,26 +1,38 @@
 import { View, Text, FlatList, Image } from "react-native";
-import { useGetOrdersQuery } from "../services/shopService";
+import { useGetOrdersQuery, useLazyGetOrdersQuery } from "../services/shopService";
 import { IOrder } from "../interfacesAndTypes/interfaces";
-import { productSliderStyles } from "../styles/customStyles";
+import { orderStyles, productSliderStyles } from "../styles/customStyles";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { PRIMARY_COLOR } from "../utils/constants";
 
 const OrderDetail = ({ order }: { order: IOrder }) => {
     return (
         <>
-            <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignContent: "center", padding: 4 }}>
-                <Image source={require("../../assets/order-logo.png")} />
-                <View>
-                    <Text> En proceso</Text>
+            <View style={orderStyles.container}>
+                <View style={orderStyles.detail}>
+                    <Text style={{ color: "#00AAF2" }}> En proceso</Text>
                     <Text> Nro de envío: {order.id}</Text>
-                    <Text> Fecha:{`${new Date(Number(order.createdAt))}`}</Text>
-                    <Text> Total:{order.total}</Text>
+                    <Text> Fecha:{`${new Date(Number(order.createdAt)).toLocaleString()}`}</Text>
                 </View>
+                <Text style={{ textAlign: "right" }}> Total: ${order.total}</Text>
             </View>
             <View style={productSliderStyles.lineStyle} />
         </>
     );
 };
 const Orders = ({ navigation }: any) => {
-    const { data: orders, isLoading, error } = useGetOrdersQuery();
+    const { user } = useSelector((state: any) => state.auth.value);
+    const [getOrders] = useLazyGetOrdersQuery();
+    const [orders, setOrders] = useState([] as any);
+    const getOrdersDetails = async () => {
+        const { data, isLoading } = await getOrders(user.id);
+        if (data && !isLoading) setOrders(data);
+    };
+    useEffect(() => {
+        getOrdersDetails();
+    }, []);
+
     return (
         <View style={{ flex: 1, backgroundColor: "white", margin: 10 }}>
             <FlatList data={orders} renderItem={({ item }) => <OrderDetail order={item} />} keyExtractor={(item: IOrder) => item.id.toString()} />

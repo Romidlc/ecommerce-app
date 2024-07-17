@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { PRIMARY_COLOR, SUCCESS_COLOR } from "../utils/constants";
+import { deleteAsync } from "expo-file-system";
 
 export const headerStyles = StyleSheet.create({
     container: {
@@ -98,7 +99,7 @@ export const productSliderStyles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: "#DBE2E2",
         margin: 5,
-        width: "90%",
+        width: "95%",
     },
     fee: {
         color: SUCCESS_COLOR,
@@ -263,8 +264,6 @@ export const formStyles = StyleSheet.create({
         margin: 10,
     },
     logo: {
-        // width: 150,
-        // height: 41,
         width: 80,
         height: 80,
     },
@@ -317,12 +316,18 @@ export const profileStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
-    selectImage: {
-        backgroundColor: PRIMARY_COLOR,
-        margin: 20,
-        padding: 20,
+});
+
+export const orderStyles = StyleSheet.create({
+    container: {
+        flex: 1,
         flexDirection: "row",
+        justifyContent: "space-between",
         alignItems: "center",
-        justifyContent: "center",
+        padding: 20,
+    },
+    detail: {
+        justifyContent: "space-between",
+        padding: 5,
     },
 });
