@@ -1,8 +1,6 @@
 import { BASE_URL } from "../firebase/database";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IOrder, IProduct } from "../interfacesAndTypes/interfaces";
-import { image } from "react-native";
-
 const shopApi = createApi({
     reducerPath: "shopApi",
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -34,8 +32,8 @@ const shopApi = createApi({
                 body: order,
             }),
         }),
-        getOrders: builder.query<IOrder[], void>({
-            query: () => `orders.json`,
+        getOrders: builder.query<IOrder[], string>({
+            query: (userId) => `orders.json?orderBy="userId"&equalTo="${userId}"`,
             transformResponse: (res: IOrder[]): IOrder[] => {
                 const transformedResponse = Object.values(res);
                 return transformedResponse;
@@ -55,5 +53,5 @@ const shopApi = createApi({
         }),
     }),
 });
-export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useGetProductsByIdQuery, useLazyGetProductsQuery, useConfirmPurchaseMutation, useGetOrdersQuery, useGetUserProfileImageQuery, useUploadUserProfileImageMutation } = shopApi;
+export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useGetProductsByIdQuery, useLazyGetProductsQuery, useConfirmPurchaseMutation, useGetOrdersQuery, useGetUserProfileImageQuery, useUploadUserProfileImageMutation, useLazyGetOrdersQuery } = shopApi;
 export default shopApi;
