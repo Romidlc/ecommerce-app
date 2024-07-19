@@ -55,9 +55,7 @@ const SignIn = () => {
                 email: result.data.email,
                 localId: result.data.localId,
                 token: result.data.idToken,
-            })
-                .then((result) => console.log("[SignIn]", result))
-                .catch((error) => console.log("[SignIn] User insertion failed", error));
+            }).catch((error) => console.log("[SignIn] User insertion failed", error));
         }
     }, [result]);
 

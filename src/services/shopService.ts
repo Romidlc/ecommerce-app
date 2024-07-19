@@ -35,7 +35,11 @@ const shopApi = createApi({
         getOrders: builder.query<IOrder[], string>({
             query: (userId) => `orders.json?orderBy="userId"&equalTo="${userId}"`,
             transformResponse: (res: IOrder[]): IOrder[] => {
-                const transformedResponse = Object.values(res);
+                // Sort orders data in ascending order by timestamp
+                const transformedResponse = Object.values(res).sort((a: { createdAt: string }, b: { createdAt: string }) => {
+                    if (b.createdAt < a.createdAt) return -1;
+                    return 0;
+                });
                 return transformedResponse;
             },
         }),
