@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartStyles, fontSize, formStyles } from "../styles/customStyles";
 import { clearCartItems, removeFromCart } from "../features/Cart/cartSlice";
 import { useConfirmPurchaseMutation } from "../services/shopService";
-import { HOME } from "../utils/constants";
+import { HOME, ORDERS } from "../utils/constants";
 import { ICartItem } from "../interfacesAndTypes/interfaces";
 
 const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
@@ -35,7 +35,7 @@ const Cart = ({ navigation }: any) => {
     };
 
     const showConfirmAlert = () =>
-        Alert.alert("Compra", "¿Desea confirmar la compra?", [
+        Alert.alert("Confirmación de compra", "¿Desea confirmar la compra?", [
             {
                 text: "Cancelar",
                 onPress: () => console.log("Cancel Pressed"),
@@ -51,6 +51,7 @@ const Cart = ({ navigation }: any) => {
                         total: totalItems,
                     });
                     clearCartItems();
+                    navigation.navigate(ORDERS);
                 },
             },
         ]);

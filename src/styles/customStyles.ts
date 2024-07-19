@@ -316,6 +316,18 @@ export const profileStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    uploadImageContainer: { backgroundColor: PRIMARY_COLOR, width: "100%", height: 50, justifyContent: "space-between", flexDirection: "row" },
+    uploadImgCloseBtn: { flexDirection: "row", margin: 5, padding: 5, alignItems: "center", justifyContent: "center" },
+    uploadImgSaveBtn: {
+        flexDirection: "row",
+        borderWidth: 1,
+        borderColor: "white",
+        width: "30%",
+        margin: 5,
+        padding: 5,
+        alignItems: "center",
+        justifyContent: "center",
+    },
 });
 
 export const orderStyles = StyleSheet.create({
@@ -323,8 +335,9 @@ export const orderStyles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
+        flexWrap: "nowrap",
         alignItems: "center",
-        padding: 20,
+        paddingHorizontal: 10,
     },
     detail: {
         justifyContent: "space-between",

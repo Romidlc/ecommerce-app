@@ -4,7 +4,6 @@ import { IOrder } from "../interfacesAndTypes/interfaces";
 import { orderStyles, productSliderStyles } from "../styles/customStyles";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { PRIMARY_COLOR } from "../utils/constants";
 
 const OrderDetail = ({ order }: { order: IOrder }) => {
     return (
@@ -12,7 +11,7 @@ const OrderDetail = ({ order }: { order: IOrder }) => {
             <View style={orderStyles.container}>
                 <View style={orderStyles.detail}>
                     <Text style={{ color: "#00AAF2" }}> En proceso</Text>
-                    <Text> Nro de envío: {order.id}</Text>
+                    <Text> Nº de orden: {(order.id + 1).toFixed()}</Text>
                     <Text> Fecha:{`${new Date(Number(order.createdAt)).toLocaleString()}`}</Text>
                 </View>
                 <Text style={{ textAlign: "right" }}> Total: ${order.total}</Text>

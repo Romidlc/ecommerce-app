@@ -4,22 +4,16 @@ import { profileStyles } from "../styles/customStyles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetUserProfileImageQuery } from "../services/shopService";
 import { setProfileImage } from "../features/User/userSlice";
-import { useGetUserProfileImageQuery, useUploadUserProfileImageMutation } from "../services/shopService";
 
-const ImageSelector = () => {
-    const [userImage, setUserImage] = useState(null as any);
+const ImageSelector = ({ setUploadData, uploadData, userImage, setUserImage }: { setUploadData: (value: boolean) => void; uploadData: boolean; userImage: string; setUserImage: (value: string) => void }) => {
     const { user } = useSelector((state: any) => state.auth.value);
-    const [triggerSaveProfileImage, { isLoading }] = useUploadUserProfileImageMutation();
     const { data } = useGetUserProfileImageQuery(user.id);
     const dispatch = useDispatch();
     const verifyCameraPermissions = async () => {
         const { granted } = await ImagePicker.requestCameraPermissionsAsync();
         return granted;
-    };
-    const uploadImage = () => {
-        dispatch(setProfileImage(userImage));
-        const {} = triggerSaveProfileImage({ image: userImage, localId: user.id });
     };
     const pickImage = async () => {
         const hasPermission = await verifyCameraPermissions();
@@ -31,10 +25,8 @@ const ImageSelector = () => {
                 base64: true,
                 quality: 0.2,
             });
-            if (!result.canceled) {
-                setUserImage(`data:image/jpeg;base64,${result.assets[0].base64}`);
-                uploadImage();
-            }
+            if (!result.canceled) setUserImage(`data:image/jpeg;base64,${result.assets[0].base64}`);
+            setUploadData(true);
         }
     };
 
@@ -42,19 +34,16 @@ const ImageSelector = () => {
         // NOTE: verify if the user has a profile image uploaded
         if (data) dispatch(setProfileImage(data.image));
     }, [data]);
+
     return (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
             <View style={profileStyles.uploadContainer}>
                 {(userImage || user.image) && <Image source={{ uri: userImage || user.image }} resizeMode="cover" style={profileStyles.img} />}
                 <View style={profileStyles.uploadBtnContainer}>
-                    {!isLoading ? (
-                        <Pressable style={profileStyles.uploadBtn} onPress={pickImage}>
-                            <Ionicons name="camera-outline" size={24} color={"white"} />
-                            <Text style={{ color: "white" }}>Tomar foto</Text>
-                        </Pressable>
-                    ) : (
-                        <ActivityIndicator color="white" />
-                    )}
+                    <Pressable style={profileStyles.uploadBtn} onPress={pickImage}>
+                        <Ionicons name="camera-outline" size={24} color={"white"} />
+                        <Text style={{ color: "white" }}>Tomar foto</Text>
+                    </Pressable>
                 </View>
             </View>
         </View>
