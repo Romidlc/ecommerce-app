@@ -4,7 +4,7 @@ import { formStyles } from "../styles/customStyles";
 
 const Error = ({ errorMessage }: { errorMessage: string }) => {
     return (
-        <View>
+        <View style={formStyles.errorContainer}>
             <Text style={formStyles.textError}>{errorMessage}</Text>
         </View>
     );

@@ -1,5 +1,5 @@
-import { View, Text, FlatList, Image } from "react-native";
-import { useGetOrdersQuery, useLazyGetOrdersQuery } from "../services/shopService";
+import { View, Text, FlatList } from "react-native";
+import { useLazyGetOrdersQuery } from "../services/shopService";
 import { IOrder } from "../interfacesAndTypes/interfaces";
 import { orderStyles, productSliderStyles } from "../styles/customStyles";
 import { useEffect, useState } from "react";
@@ -28,6 +28,7 @@ const Orders = ({ navigation }: any) => {
         const { data, isLoading } = await getOrders(user.id);
         if (data && !isLoading) setOrders(data);
     };
+
     useEffect(() => {
         getOrdersDetails();
     }, []);

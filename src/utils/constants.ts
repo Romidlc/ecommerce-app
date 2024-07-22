@@ -1,4 +1,5 @@
 import { IMessage } from "../interfacesAndTypes/interfaces";
+export const BAD_REQUEST: number = 400;
 
 export const ICON_BOTTOM_TAB_SIZE: number = 24;
 export const ICON_BOTTOM_TAB_COLOR: string = "#F1F1F1";
@@ -32,4 +33,5 @@ export const errorMessages: IMessage = {
     fullname: "Su nombre y apellido no deben contener números.",
     password: "Su contraseña debe tener al menos 6 caracteres.",
     confirmPassword: "Su contraseña debe tener al menos 6 caracteres.",
+    incorrectUser: "El correo electrónico o la contraseña son incorrectos.",
 };
