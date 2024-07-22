@@ -14,12 +14,13 @@
     "ios": {
       "supportsTablet": true
     },
+    
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
-        "userInterfaceStyle": "light"
-      }
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.romidlc.ecommerce"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -241,9 +241,17 @@ export const formStyles = StyleSheet.create({
         paddingRight: 10,
         fontSize: 16,
     },
+    errorContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FDEDED",
+        height: 50,
+        width: 300,
+        fontSize: 14,
+    },
     textError: {
-        color: "red",
-        fontSize: 16,
+        color: "#5F2120",
+        fontSize: 14,
     },
     button: {
         backgroundColor: "#00AAF2",

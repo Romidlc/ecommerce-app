@@ -4,12 +4,12 @@ import { profileStyles } from "../styles/customStyles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetUserProfileImageQuery } from "../services/shopService";
+import { useGetUserProfileImageQuery, useLazyGetUserProfileImageQuery } from "../services/shopService";
 import { setProfileImage } from "../features/User/userSlice";
 
 const ImageSelector = ({ setUploadData, uploadData, userImage, setUserImage }: { setUploadData: (value: boolean) => void; uploadData: boolean; userImage: string; setUserImage: (value: string) => void }) => {
     const { user } = useSelector((state: any) => state.auth.value);
-    const { data } = useGetUserProfileImageQuery(user.id);
+    const [getUserProfile] = useLazyGetUserProfileImageQuery();
     const dispatch = useDispatch();
     const verifyCameraPermissions = async () => {
         const { granted } = await ImagePicker.requestCameraPermissionsAsync();
@@ -30,10 +30,14 @@ const ImageSelector = ({ setUploadData, uploadData, userImage, setUserImage }: {
         }
     };
 
-    useEffect(() => {
+    const getUserPicture = async () => {
         // NOTE: verify if the user has a profile image uploaded
+        const { data } = await getUserProfile(user.id);
         if (data) dispatch(setProfileImage(data.image));
-    }, [data]);
+    };
+    useEffect(() => {
+        getUserPicture();
+    }, []);
 
     return (
         <View style={{ justifyContent: "center", alignItems: "center" }}>

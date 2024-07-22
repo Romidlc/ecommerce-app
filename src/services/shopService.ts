@@ -57,5 +57,5 @@ const shopApi = createApi({
         }),
     }),
 });
-export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useGetProductsByIdQuery, useLazyGetProductsQuery, useConfirmPurchaseMutation, useGetOrdersQuery, useGetUserProfileImageQuery, useUploadUserProfileImageMutation, useLazyGetOrdersQuery } = shopApi;
+export const { useGetCategoriesQuery, useGetProductsQuery, useGetProductsByCategoryNameQuery, useLazyGetProductsByCategoryNameQuery, useGetProductsByIdQuery, useLazyGetProductsQuery, useConfirmPurchaseMutation, useGetOrdersQuery, useGetUserProfileImageQuery, useUploadUserProfileImageMutation, useLazyGetOrdersQuery, useLazyGetUserProfileImageQuery } = shopApi;
 export default shopApi;

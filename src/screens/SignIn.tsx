@@ -2,7 +2,7 @@ import { View, Text, Image, TextInput, Pressable, ActivityIndicator, ScrollView 
 import React, { useEffect, useState } from "react";
 import { formStyles } from "../styles/customStyles";
 import { useNavigation } from "@react-navigation/native";
-import { SIGNUP, errorMessages } from "../utils/constants";
+import { BAD_REQUEST, SIGNUP, errorMessages } from "../utils/constants";
 import { useSignInMutation } from "../services/authService";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/User/userSlice";
@@ -42,6 +42,7 @@ const SignIn = () => {
         triggerSignIn({ email, password });
     };
     useEffect(() => {
+        if (Number(result?.error?.status) === BAD_REQUEST) setErrors({ user: errorMessages["incorrectUser"] });
         if (result?.data) {
             dispatch(
                 setUser({
@@ -75,7 +76,7 @@ const SignIn = () => {
                     <Pressable onPress={() => handlePasswordVisibility()}>{!showPassword ? <Ionicons color={"black"} size={24} name="eye-off-outline" /> : <Ionicons color={"black"} size={24} name="eye-outline" />}</Pressable>
                 </View>
                 {errors.password && <Error errorMessage={errors.password} />}
-
+                {errors.user && <Error errorMessage={errors.user} />}
                 <Pressable onPress={() => submitLogin()} style={formStyles.button}>
                     {!result.isLoading ? <Text style={formStyles.text}>Confirmar</Text> : <ActivityIndicator color="white" />}
                 </Pressable>

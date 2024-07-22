@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartStyles, fontSize, formStyles } from "../styles/customStyles";
 import { clearCartItems, removeFromCart } from "../features/Cart/cartSlice";
 import { useConfirmPurchaseMutation } from "../services/shopService";
-import { HOME, ORDERS } from "../utils/constants";
+import { HOME, PRIMARY_COLOR } from "../utils/constants";
 import { ICartItem } from "../interfacesAndTypes/interfaces";
+import { useEffect } from "react";
 
 const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
 };
 const Cart = ({ navigation }: any) => {
     const { user } = useSelector((state: any) => state.auth.value);
+    const dispatch = useDispatch();
     const { cartItems, totalItems } = useSelector((state: any) => state.cart.value);
     const [triggerConfirmPurchase, result] = useConfirmPurchaseMutation();
     const makeAPurchase = () => {
@@ -34,11 +36,14 @@ const Cart = ({ navigation }: any) => {
         showConfirmAlert();
     };
 
+    useEffect(() => {
+        if (result.isSuccess) dispatch(clearCartItems());
+    }, [result]);
+
     const showConfirmAlert = () =>
         Alert.alert("Confirmación de compra", "¿Desea confirmar la compra?", [
             {
                 text: "Cancelar",
-                onPress: () => console.log("Cancel Pressed"),
             },
             {
                 text: "Confirmar",
@@ -50,13 +55,19 @@ const Cart = ({ navigation }: any) => {
                         createdAt: Date.now().toString(),
                         total: totalItems,
                     });
-                    clearCartItems();
-                    navigation.navigate(ORDERS);
                 },
             },
         ]);
     return (
         <View style={cartStyles.cartContainer}>
+            {result.isSuccess && (
+                <View style={{ alignItems: "center", justifyContent: "center", margin: 20, opacity: 0.5, padding: 5, backgroundColor: PRIMARY_COLOR, width: 350, height: 50 }}>
+                    <Text style={{ fontSize: 16, color: "white" }}> Transacción exitosa </Text>
+                    <Pressable onPress={() => navigation.navigate(HOME)}>
+                        <Text style={formStyles.subLink}> Volver a la home </Text>
+                    </Pressable>
+                </View>
+            )}
             <FlatList data={cartItems} renderItem={({ item }) => <CartItem cartItem={item} />} keyExtractor={(producto) => producto.id} />
 
             {cartItems.length > 0 && (

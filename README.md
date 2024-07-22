@@ -15,5 +15,5 @@ Aclaración: Esta app no cuenta con la funcionalidad correspondiente al checkout
 
 # Levantar la app en un emulador
 
-1. Android: press e
+1. Android: press a
 2. Ios: press i
